@@ -1,0 +1,220 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+id: "subject"
+title: Subject
+type: object
+namespace: http://www.sickleinafrica.org/
+category: administrative
+program: '*'
+project: '*'
+description: >
+  The collection of all data related to a specific subject, patient, or participant in the context of a specific cohort, collection, experiment or research study.
+additionalProperties: false
+submittable: true
+validators: null
+
+systemProperties:
+  - id
+  - project_id
+  - created_datetime
+  - updated_datetime
+  - state
+
+links:
+  - name: study
+    backref: subject
+    label: member_of
+    target_type: study
+    multiplicity: many_to_many
+    required: true
+
+required:
+  - type
+  - submitter_id
+  - study
+
+uniqueKeys:
+  - [id]
+  - [project_id, submitter_id]
+
+# Subject properties
+properties:
+  $ref: "_definitions.yaml#/ubiquitous_properties"
+  redcap_id:
+    type: string
+    description: REDCap ID
+  research_id:
+    type: string
+    description: Research Subject ID (https://scdontology.h3abionet.org/ontology/SCDO_0000304)
+  consent_obtained:
+    description: Has the patient consented?
+    enum:
+      - "1, Yes"
+      - "2, No"
+      - "-7, Refused"
+      - "-9, Don't Know"
+  consent_type:
+    description: Type of informed consent
+    type: array
+    items:
+      enum:
+        - "1, Study enrollment"
+        - "2, Specimen Storage Consent"
+        - "3, Genetic Material Storage Consent"
+        - "4, Broad consent"
+  consent_date:
+    type: string
+    description: Date subject signed consent
+  consented_by:
+    type: string
+    description: Consented by
+  consent_file_guid:
+    type: string
+    description: GUID of the consent form
+  date_today:
+    type: string
+    description: Visit Date (dd/mm/yyyy)
+  participant_number:
+    type: string
+    description: Participant Number
+  scd_number:
+    type: string
+    description: SCD Number
+  date_of_birth:
+    type: string
+    description: Date of Birth (dd/mm/yyyy)
+  calc_age_on_day_of_visit:
+    type: number
+    description: Calculated age (in months)
+  age_on_day_of_visit:
+    type: integer
+    description: Self-reported age (in years)
+  marital_status:
+    description: Marital Status
+    enum:
+      - "1, Married to a person of the opposite sex"
+      - "2, Married to a person of the same sex"
+      - "3, Not married but living together with a partner of the opposite sex"
+      - "5, Not married but living together with a partner of the same sex"
+      - "6, Widowed"
+      - "7, Divorced or annulled"
+      - "8, Separated"
+      - "9, Never been married"
+      - "10, Other"
+  other_marital_status:
+    type: string
+    description: If other marital status, please specify
+  gender:
+    description: Gender
+    enum:
+      - "0, Female"
+      - "1, Male"
+      - "-7, Refused"
+      - "-9, Don't know"
+  diagnosis_date_known:
+    description: Is date of diagnosis known?
+    enum:
+      - "Yes"
+      - "No"
+  exact_diagnosis_date:
+    type: string
+    description: Date of diagnosis
+  year_of_diagnosis:
+    type: integer
+    description: Year of Diagnosis
+  month_of_diagnosis:
+    type: integer
+    description: Month of Diagnosis
+  scd_test_result:
+    description: SCD Test Result
+    enum: 
+      - "1, SS"
+      - "2, SBThal"
+      - "3, SC"
+      - "4, AS"
+  type_of_test:
+    description: Type of test
+    enum:
+      - "1, HPLC"
+      - "2, HBE"
+      - "3, IEF"
+      - "4, Basique"
+      - "5, Acide"
+      - "6, Others"
+  other_test:
+    type: string
+    description: If other test, please specify.
+  abo_blood_group:
+    type: string
+    description: ABO Blood Group
+  using_hydroxyurea:
+    description: 	Using Hydroxyurea?
+    enum:
+      - "Yes"
+      - "No"
+      - "Not Reported"
+  date_of_initiation_of_hydr:
+    type: string
+    description: Date of Initiation of Hydroxyurea Therapy
+  penicillin_v_prophylaxis:
+    description: Penicillin V (prophylaxis)
+    enum:
+      - "1, Yes"
+      - "2, No"
+      - "-6, NA"
+  folic_acid:
+    description: Folic Acid?
+    enum:
+      - "Yes"
+      - "No"
+      - "Not Reported"
+  antimalaria_prophylaxis:
+    description: Anti Malaria Prophylaxis
+    enum:
+      - "1, Yes"
+      - "2, No"
+      - "-6, NA"
+  pneumococcal_vacc_uptodate:
+    description: Pneumococcal vaccination up to date?
+    enum:
+      - "Yes"
+      - "No"
+      - "Not Reported"
+  added_by:
+    type: string
+    description: Added by
+  add_date:
+    type: string
+    description: Add Date
+
+  study:
+    description: Link to a record in the parent 'study' node.
+    $ref: "_definitions.yaml#/to_many"
+
+  # index_date:
+  #   description: >
+  #     "Indicates whether the time point reference begins at the donor's actual death, presumed death, 
+  #     or when the cross clamp was applied in the case of surgical donors."
+  #   enum:
+  #     - Actual Death
+  #     - Presumed Death
+  #     - Cross Clamp
+  #     - Study Enrollment
+  #     - Diagnosis
+  #     - First Patient Visit
+  # consent_codes:
+  #   description: >
+  #       Data Use Restrictions that are used to indicate  permissions/restrictions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be removed, stored or used. \n
+  #       Based on the Data Use Ontology : see http://www.obofoundry.org/ontology/duo.html \n
+  #       GRU - For general research use for any research purpose. Example of usage: This includes but is not limited to: health/medical/biomedical purposes, fundamental biology research, the study of population origins or ancestry, statistical methods and algorithms development, and social-sciences research. \n
+  #       HMB - Use of the data is limited to health/medical/biomedical purposes; does not include the study of population origins or ancestry. \n
+  #       DS-X - Use of the data must be related to [disease]. \n
+  #       NPU - Use of the data is limited to not-for-profit organizations and not-for-profit use, non-commercial use. \n
+  #       IRB - Requestor must provide documentation of local IRB/REC approval.
+  #   type: array
+  #   items:
+  #     type: string
+  # subject_id:
+  #   type: string
+  #   description: >
+  #     Unique identifier that can be used to retrieve more information for a patient / subject / study participant.

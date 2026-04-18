@@ -1,0 +1,141 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+id: "lab_result"
+title: Laboratory Results
+type: object
+namespace: http://www.sickleinafrica.org/
+category: clinical
+program: '*'
+project: '*'
+description: >
+  Measurements obtained from patient samples (blood, urine, etc.) or other laboratory assays or tests required by a medical professional. These will include lipids and lipid metabolism parameters, lipid oxidation markers, cytokines, adhesion molecules, nitric oxide, and hemostasis/fibrinolysis markers.
+additionalProperties: false
+submittable: true
+validators: null
+
+systemProperties:
+  - id
+  - project_id
+  - state
+  - created_datetime
+  - updated_datetime
+
+links:
+  - name: subject
+    backref: lab_result
+    label: derived_from
+    target_type: subject
+    multiplicity: many_to_many
+    required: true
+
+uniqueKeys:
+  - [id]
+  - [project_id, submitter_id]
+
+required:
+  - type
+  - submitter_id
+  - subject
+
+properties:
+  $ref: "_definitions.yaml#/ubiquitous_properties"
+
+  cbc_redbloodcount:
+    type: string
+    description: Red blood cell count
+  cbc_whitebloodcount:	
+    type: string
+    description: White blood cell count (WBC)
+  cbc_platelet_count:
+    type: string
+    description: Platelet count
+  cbc_hemoglobin:
+    type: string
+    description: Hemoglobin
+  cbc_mean_cell_volume:
+    type: string
+    description: Mean cell volume
+  cbc_mean_cell_hemoglobin:
+    type: string
+    description: Mean cell hemoglobin
+  cbc_mchc:
+    type: string
+    description: Mean Cell Hb Concentration (MCHC))
+  cbc_redcelldistributionwidth:
+    type: string
+    description: Red cell distribution width (RDW)
+  serum_creatinine_conc:
+    type: string
+    description: Serum Creatinine Concentration
+  urinary_microalbumin_conc:
+    type: string
+    description: Urinary microalbumin concentration
+  urinary_creatinine_conc:
+    type: string
+    description: Urinary Creatinine Concentration
+  results_of_alanine_at_assay:
+    type: string
+    description: Results of alanine aminotransferase assay
+  results_of_aspartate_at_assay:
+    type: string
+    description: Results of aspartate aminotransferase assay
+  results_of_alkaline_phosphatase_assay:
+    type: string
+    description: Results of alkaline phosphatase assay
+  results_of_bilirubin_assay:
+    type: string
+    description: Results of bilirubin assay
+  billirubin_total_billirubin_conc:
+    type: string
+    description: Total billirubin concentration
+  lactate_dehydrogenase_conc:
+    type: string
+    description: Lactate dehydrogenase level
+  reticulocyte_amount:
+    type: string
+    description: Number of reticulocytes
+  scd_hemoglobin_assay_results:
+    description: Were the assay results recorded for the following hemoglobins? (1, Hb A | 2, Hb  F | 3, Hb  S | 4, Hb  C | 5, Hb  E/A2 | 6, Hb  D-Punjab | 7, Hb  G-Philadelphia | 8, Hb  O-Arab)
+    type: array
+    items:
+      enum:
+        - hba2
+        - hbs
+        - hbc
+        - hbe_a2
+        - hb_dpunjab
+        - hb_gphilidelphia
+        - hb_o_arab
+  hbf_percent:
+    type: string
+    description: Level of fetal hemoglobin
+  body_temperature:
+    type: string
+    description: Patient's Body Temperature (in degrees Celsius)
+  respiratory_rate:
+    type: string
+    description: Patient's Respiratory Rate
+  partial_pressure_co2:
+    type: string
+    description: Partial Pressure of Carbon Dioxide (PaCO2)
+  partial_pressure_of_oxygen:
+    type: string
+    description: Partial Pressure of Oxygen (PaO2)
+  total_hemoglobin:
+    type: string
+    description: Total Hemoglobin (Hbtotal)
+  oxyhemoglobin_saturation:
+    type: string
+    description: Oxyhemoglobin Saturation (HbO2)
+  carboxyhemoglobin:
+    type: string
+    description: Carboxyhemoglobin (COHb)
+  methemoglobin:
+    type: string
+    description: Methemoglobin (MetHb)
+  imagemap:
+    type: string
+    description: Location and intensity of pain on a human body diagram.
+
+  subject:
+    $ref: "_definitions.yaml#/to_many"

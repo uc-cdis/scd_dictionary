@@ -1,0 +1,62 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+id: "publication"
+title: Publication
+type: object
+namespace: http://www.sickleinafrica.org/
+category: administrative
+program: '*'
+project: '*'
+description: "Publication for a project."
+additionalProperties: false
+submittable: true
+validators: null
+
+systemProperties:
+  - id
+  - project_id
+  - state
+  - created_datetime
+  - updated_datetime
+
+links:
+  - name: project
+    backref: publication
+    label: refers_to
+    target_type: project
+    multiplicity: many_to_many
+    required: true
+
+required:
+  - type
+  - submitter_id
+  - project
+
+uniqueKeys:
+  - [ id ]
+  - [ project_id, submitter_id ] 
+
+properties:
+  abstract:
+    type: string
+    description: The abstract of the publication.
+  authors:
+    type: string
+    description: The authors of the publication.
+  citation:
+    type: string
+    description: The citation of the publication.
+  doi:
+    type: string
+    description: The DOI of the publication.
+  journal:
+    type: string
+    description: The journal of the publication.
+  pmid:
+    type: string
+    description: The PMID of the publication, if applicable.
+  year:
+    type: string
+    description: The year of the publication.
+  project:
+    $ref: "_definitions.yaml#/to_many_project"
