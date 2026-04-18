@@ -43,7 +43,7 @@ properties:
   cbc_redbloodcount:
     type: string
     description: Red blood cell count
-  cbc_whitebloodcount:	
+  cbc_whitebloodcount:
     type: string
     description: White blood cell count (WBC)
   cbc_platelet_count:

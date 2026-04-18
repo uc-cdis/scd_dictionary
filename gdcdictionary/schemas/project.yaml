@@ -78,8 +78,7 @@ properties:
     type: string
   state:
     description: |
-      The possible states a project can be in.  All but `open` are
-      equivalent to some type of locked state.
+      The possible states a project can be in. All but `open` are equivalent to some type of locked state.
     default: open
     enum:
         # open: the only state users can perform 'upload' actions

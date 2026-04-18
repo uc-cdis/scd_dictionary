@@ -100,7 +100,7 @@ properties:
   dbgap_consent_text:
     description: >
       The dbGaP consent text (example, HMB-IRB).
-    type: string    
+    type: string
     
   authz:
     description: >

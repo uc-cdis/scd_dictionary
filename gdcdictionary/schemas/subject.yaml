@@ -190,31 +190,3 @@ properties:
   study:
     description: Link to a record in the parent 'study' node.
     $ref: "_definitions.yaml#/to_many"
-
-  # index_date:
-  #   description: >
-  #     "Indicates whether the time point reference begins at the donor's actual death, presumed death, 
-  #     or when the cross clamp was applied in the case of surgical donors."
-  #   enum:
-  #     - Actual Death
-  #     - Presumed Death
-  #     - Cross Clamp
-  #     - Study Enrollment
-  #     - Diagnosis
-  #     - First Patient Visit
-  # consent_codes:
-  #   description: >
-  #       Data Use Restrictions that are used to indicate  permissions/restrictions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be removed, stored or used. \n
-  #       Based on the Data Use Ontology : see http://www.obofoundry.org/ontology/duo.html \n
-  #       GRU - For general research use for any research purpose. Example of usage: This includes but is not limited to: health/medical/biomedical purposes, fundamental biology research, the study of population origins or ancestry, statistical methods and algorithms development, and social-sciences research. \n
-  #       HMB - Use of the data is limited to health/medical/biomedical purposes; does not include the study of population origins or ancestry. \n
-  #       DS-X - Use of the data must be related to [disease]. \n
-  #       NPU - Use of the data is limited to not-for-profit organizations and not-for-profit use, non-commercial use. \n
-  #       IRB - Requestor must provide documentation of local IRB/REC approval.
-  #   type: array
-  #   items:
-  #     type: string
-  # subject_id:
-  #   type: string
-  #   description: >
-  #     Unique identifier that can be used to retrieve more information for a patient / subject / study participant.
